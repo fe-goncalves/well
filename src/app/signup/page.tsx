@@ -47,7 +47,7 @@ export default function SignupPage() {
   return (
     <div className="flex min-h-dvh flex-1 flex-col bg-[#0A9396]">
       <div
-        className="page-enter mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-4"
+        className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-4"
         style={{
           paddingTop: "max(2.5rem, env(safe-area-inset-top))",
           paddingBottom: "max(2.5rem, env(safe-area-inset-bottom))",

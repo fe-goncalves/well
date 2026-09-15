@@ -137,7 +137,7 @@ export function JornadaCalendar({
             <button
               type="button"
               onClick={() => navigate("/jornada?periodo=semana")}
-              className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-bold transition-transform active:scale-[0.98] ${
+              className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-bold ${
                 periodo === "semana"
                   ? "bg-[var(--amber)] text-[var(--ink)]"
                   : "text-white/65"
@@ -149,7 +149,7 @@ export function JornadaCalendar({
             <button
               type="button"
               onClick={() => navigate("/jornada?periodo=mes")}
-              className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-bold transition-transform active:scale-[0.98] ${
+              className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-bold ${
                 periodo === "mes"
                   ? "bg-[var(--mint)] text-[var(--ink)]"
                   : "text-white/65"
@@ -187,7 +187,7 @@ export function JornadaCalendar({
                         type="button"
                         key={date}
                         onClick={() => setSelected(date)}
-                        className={`flex min-h-[4.25rem] flex-col items-center justify-center rounded-xl px-0.5 py-1.5 transition-transform active:scale-95 ${tone} ${
+                        className={`flex min-h-[4.25rem] flex-col items-center justify-center rounded-xl px-0.5 py-1.5 ${tone} ${
                           isToday ? "ring-2 ring-[var(--ink)]" : ""
                         }`}
                       >
@@ -206,7 +206,7 @@ export function JornadaCalendar({
                       type="button"
                       key={date}
                       onClick={() => setSelected(date)}
-                      className={`flex w-[4.6rem] shrink-0 flex-col items-center rounded-2xl px-1.5 py-3 transition-transform active:scale-95 ${tone} ${
+                      className={`flex w-[4.6rem] shrink-0 flex-col items-center rounded-2xl px-1.5 py-3 ${tone} ${
                         isToday ? "ring-2 ring-[var(--ink)]" : ""
                       }`}
                     >

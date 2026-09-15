@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 
+/** Loader mínimo — só para espera real (ex.: fetch inicial). */
 export function BrandLoader({
   label = "Carregando…",
   fullScreen = true,
@@ -10,15 +11,15 @@ export function BrandLoader({
   fullScreen?: boolean;
 }) {
   const inner = (
-    <div className="flex flex-col items-center gap-4">
-      <div className="brand-loader-orbit relative flex h-20 w-20 items-center justify-center">
+    <div className="flex flex-col items-center gap-3">
+      <div className="relative flex h-16 w-16 items-center justify-center">
         <span className="brand-loader-ring absolute inset-0 rounded-full" aria-hidden />
         <Image
           src="/brand/W.svg"
           alt=""
-          width={56}
-          height={44}
-          className="brand-loader-w relative z-10 h-10 w-auto"
+          width={48}
+          height={38}
+          className="relative z-10 h-8 w-auto"
           priority
         />
       </div>
@@ -30,7 +31,7 @@ export function BrandLoader({
 
   return (
     <div
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-[#0A9396]/92 backdrop-blur-sm"
+      className="flex min-h-dvh flex-1 items-center justify-center bg-[#0A9396]"
       role="status"
       aria-live="polite"
       aria-label={label}

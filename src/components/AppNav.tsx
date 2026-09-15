@@ -12,7 +12,7 @@ const ITEMS = [
 
 export function AppNav({ active }: { active: (typeof ITEMS)[number]["href"] }) {
   const router = useRouter();
-  const { navigate, pending } = useAppNav();
+  const { navigate } = useAppNav();
 
   return (
     <nav
@@ -26,12 +26,11 @@ export function AppNav({ active }: { active: (typeof ITEMS)[number]["href"] }) {
             <button
               key={item.href}
               type="button"
-              disabled={pending && !isActive}
               onPointerEnter={() => router.prefetch(item.href)}
               onClick={() => {
                 if (!isActive) navigate(item.href);
               }}
-              className={`flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-full px-2 py-2.5 transition-[transform,background-color,color] duration-150 ease-out active:scale-95 ${
+              className={`flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-full px-2 py-2.5 ${
                 isActive
                   ? "bg-white text-[var(--ink)]"
                   : "text-white/70 hover:text-white"

@@ -28,7 +28,7 @@ export function ScreenChrome({
   return (
     <div className="min-h-full flex-1" style={{ backgroundColor: bg }}>
       <div
-        className="page-enter mx-auto flex w-full max-w-lg flex-1 flex-col px-4 pb-[max(2.5rem,env(safe-area-inset-bottom))] sm:max-w-2xl"
+        className="mx-auto flex w-full max-w-lg flex-1 flex-col px-4 pb-[max(2.5rem,env(safe-area-inset-bottom))] sm:max-w-2xl"
         style={{ paddingTop: "max(1.25rem, env(safe-area-inset-top))" }}
       >
         <header className="flex items-center justify-between gap-4">

@@ -18,7 +18,7 @@ export function AppShell({
       style={{ backgroundColor: bg }}
     >
       <div
-        className={`page-enter mx-auto flex w-full max-w-lg flex-1 flex-col px-4 sm:max-w-2xl ${
+        className={`mx-auto flex w-full max-w-lg flex-1 flex-col px-4 sm:max-w-2xl ${
           withNav
             ? "pb-[calc(5.5rem+env(safe-area-inset-bottom))]"
             : "pb-[max(1.5rem,env(safe-area-inset-bottom))]"

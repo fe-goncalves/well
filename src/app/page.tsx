@@ -12,7 +12,6 @@ export default async function HomePage() {
 
   return (
     <div className="relative flex min-h-dvh flex-1 flex-col overflow-hidden bg-[#0A9396]">
-      {/* Atmosphere */}
       <div
         className="pointer-events-none absolute inset-0"
         aria-hidden
@@ -25,7 +24,7 @@ export default async function HomePage() {
         }}
       />
       <div
-        className="lp-float pointer-events-none absolute -right-16 top-24 h-72 w-72 opacity-[0.18] sm:h-96 sm:w-96"
+        className="pointer-events-none absolute -right-16 top-24 h-72 w-72 opacity-[0.18] sm:h-96 sm:w-96"
         aria-hidden
       >
         <Image
@@ -37,18 +36,6 @@ export default async function HomePage() {
           priority
         />
       </div>
-      <div
-        className="lp-float-delayed pointer-events-none absolute -left-20 bottom-10 h-56 w-56 opacity-[0.12] sm:h-72 sm:w-72"
-        aria-hidden
-      >
-        <Image
-          src="/brand/W.svg"
-          alt=""
-          width={300}
-          height={235}
-          className="h-full w-full rotate-12"
-        />
-      </div>
 
       <main
         className="relative z-10 mx-auto flex w-full max-w-lg flex-1 flex-col justify-center px-5 sm:max-w-xl"
@@ -57,7 +44,7 @@ export default async function HomePage() {
           paddingBottom: "max(2rem, env(safe-area-inset-bottom))",
         }}
       >
-        <div className="lp-rise flex flex-col items-center text-center">
+        <div className="flex flex-col items-center text-center">
           <Image
             src="/brand/well.svg"
             alt="WELL"
@@ -74,23 +61,23 @@ export default async function HomePage() {
             dietas.
           </p>
 
-          <div className="lp-cta mt-10 flex w-full max-w-sm flex-col gap-3">
+          <div className="mt-10 flex w-full max-w-sm flex-col gap-3">
             <Link
               href="/signup"
-              className="rounded-2xl bg-[var(--ink)] px-5 py-3.5 text-center text-sm font-bold text-white transition hover:bg-black"
+              className="rounded-2xl bg-[var(--ink)] px-5 py-3.5 text-center text-sm font-bold text-white"
             >
               Criar conta
             </Link>
             <Link
               href="/login"
-              className="rounded-2xl bg-white/15 px-5 py-3.5 text-center text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/25"
+              className="rounded-2xl bg-white/15 px-5 py-3.5 text-center text-sm font-bold text-white"
             >
               Entrar
             </Link>
           </div>
         </div>
 
-        <p className="lp-fade mt-16 text-center text-[11px] font-medium text-white/50">
+        <p className="mt-16 text-center text-[11px] font-medium text-white/50">
           Use no navegador ou instale como app (PWA).
         </p>
       </main>
