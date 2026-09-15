@@ -1,20 +1,38 @@
 /** Tipos e regras puras do domínio — sem React, sem Supabase. */
 
-export type MealSlot = "breakfast" | "lunch" | "dinner" | "snack" | "other";
+export type MealSlot =
+  | "breakfast"
+  | "lunch"
+  | "afternoon_snack"
+  | "dinner"
+  | "supper";
+
 export type Confidence = "low" | "medium" | "high";
 export type EntrySource = "ai" | "manual" | "ai_edited";
 
 export type XpEventType =
-  | "log_entry"
-  | "day_active"
-  | "manual_correct"
+  | "food_log"
+  | "food_edit_correct"
+  | "activity_log"
+  | "journal_log"
+  | "journal_photo"
+  | "day_complete"
+  | "weight_log"
+  | "goal_checkin"
+  | "goal_reached"
+  | "streak_milestone"
   | "badge_earned";
 
-export const XP_REWARDS: Record<XpEventType, number> = {
-  log_entry: 10,
-  day_active: 25,
-  manual_correct: 15,
-  badge_earned: 0, // bônus vem do badge.xp_bonus
+export const XP_REWARDS: Partial<Record<XpEventType, number>> = {
+  food_log: 10,
+  food_edit_correct: 5,
+  activity_log: 10,
+  journal_log: 15,
+  journal_photo: 5,
+  day_complete: 25,
+  weight_log: 10,
+  goal_checkin: 5,
+  goal_reached: 100,
 };
 
 /** Nível a partir do XP acumulado. Curva suave para uso diário. */
@@ -61,11 +79,3 @@ export function sumTotals(
     { calories: 0, protein: 0, carbs: 0, fat: 0 },
   );
 }
-
-export type BadgeId =
-  | "first_log"
-  | "streak_3"
-  | "streak_7"
-  | "streak_30"
-  | "honest_edit"
-  | "week_logger";

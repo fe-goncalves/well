@@ -1,7 +1,7 @@
 # Plano de UI/UX (v2 — contrato visual MVP)
 
 Alinha com [`BUSINESS_RULES.md`](./BUSINESS_RULES.md).  
-**Marca:** WELL · Logo: a caminho (wordmark/ícone entram quando você entregar o arquivo).
+**Marca:** WELL · Logo: `public/brand/well.svg` (+ PNG).
 
 ---
 
@@ -24,8 +24,8 @@ Alinha com [`BUSINESS_RULES.md`](./BUSINESS_RULES.md).
 | Nome | **WELL** |
 | Display | Fraunces |
 | UI | Manrope |
-| Auth / onboarding | Logo WELL em escala hero |
-| App logado | Logo discreta no header; herói = o dia |
+| Auth / onboarding | Logo WELL (`/brand/well.svg`) em escala hero sobre `ink` |
+| App logado | Logo discreta no header sobre fundo claro; herói = o dia |
 
 ---
 
@@ -73,10 +73,10 @@ Fonte: [Coolors](https://coolors.co/palette/001219-005f73-0a9396-94d2bd-e9d8a6-e
 
 | Aba | Função |
 |-----|--------|
-| **Hoje** | Saldo + registrar + timeline |
+| **Hoje** | Saldo + switch Alimentação / Atividades |
 | **Jornada** | Semana/mês + goals + peso |
-| **Conquistas** | Streak, badges; XP/nível conforme modo |
-| **Você** | Perfil, TMB, modo de ritmo, privacidade |
+| **Conquistas** | Streak, badges; XP/nível conforme modo — fundo `#EE9B00` |
+| **Você** | Perfil, TMB, modo de ritmo, privacidade — fundo `#001219` |
 
 ---
 
@@ -90,22 +90,22 @@ Fonte: [Coolors](https://coolors.co/palette/001219-005f73-0a9396-94d2bd-e9d8a6-e
 
 Rotacionar / sortear entre frases no mesmo sentido — nunca culpa.
 
-**Saldo > 0 (gasto > ingestão)**  
-- “No azul”  
-- “Hoje o gasto vai na frente”  
-- “Saldo positivo — energia a favor”  
-- “Conta no azul por agora”
+**Saldo > 0 (consumido > gasto)**  
+- “Consumo na frente”  
+- “Mais ingestão que gasto por agora”  
+- “Saldo positivo no placar”  
+- “Hoje a comida vai na frente”
 
 **Saldo ≈ 0**  
 - “Empatado no dia”  
 - “Quase no zero a zero”  
 - “Dia equilibrado até aqui”
 
-**Saldo < 0 (ingestão > gasto)**  
-- “No vermelho do dia”  
-- “Ingestão na frente — só um número, não um veredito”  
-- “Saldo negativo por agora”  
-- “Vermelho no placar de hoje”
+**Saldo < 0 (gasto > consumido)**  
+- “Gasto na frente”  
+- “No azul do movimento”  
+- “Mais gasto que ingestão por agora”  
+- “Movimento puxando o placar”
 
 **Meta do período (Jornada)**  
 - Dentro: “Dentro do combinado”  
@@ -133,12 +133,24 @@ Mantém o desenho da v1 (sheets, timeline, Jornada, Conquistas, rail no desktop,
 ### Hierarquia Hoje
 
 ```
-[ Header: WELL · data · streak compacto ]
-[ Bloco Saldo — cor sólida conforme estado ]
-[ Composer — Comer | Mover | Diário ]
-[ Timeline ]
-[ Disclaimer estimativa ]
+[ Header: WELL · Diário · streak ]
+[ Bloco Saldo — fundo #005F73 · número Manrope extrabold branco ]
+[ Switch Alimentação | Atividades — listas expansíveis + CTA adicionar ]
 ```
+
+Fundo da tela Hoje: `#0A9396`. Saldo = consumido − gasto.
+
+### Hierarquia Jornada
+
+```
+[ Header: WELL · Objetivo ]
+[ Bloco Saldo do período — fundo #005F73 · Manrope extrabold branco ]
+[ Switch Mensal | Semanal — calendário ]
+[ Objetivos — nota fiscal ]
+[ Peso — nota fiscal ]
+```
+
+Mesmo fundo `#0A9396` e navbar flutuante da Hoje.
 
 ### Motion MVP
 1. Count-up do saldo  

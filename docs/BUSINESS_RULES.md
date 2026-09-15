@@ -23,18 +23,25 @@ Fonte: conversas com o product owner. Itens sem marcação estão **fechados** p
 - Editar → nova chamada + recalcula. Apagar ok. Esquecer o dia ok.
 - Usuário informa porção no texto; IA não inventa o que não foi dito.
 - IA devolve **kcal + macros** (proteína, carbo, gordura) desde o dia 1.
+- Categorias de refeição: **café da manhã, almoço, lanche da tarde, jantar, ceia**.
+- Item = o que o usuário descreveu como unidade (ex.: “café com leite” = 1 item; não desmontar em ingredientes).
+- Editar item depois: reescreve o texto → IA reanalisa → salva (`ai_edited`).
 - Disclaimer permanente: estimativa, não consulta.
 - Correção manual dos números permitida.
+- **Biblioteca pessoal (`food_saved`):** ao confirmar um item (IA), o usuário pode salvá-lo na base. Depois importa no dia **sem nova chamada de IA** (`source: manual`). Upsert por label (mesmo nome atualiza macros). Editar a base **não** altera lançamentos diários já feitos.
+- **Passos (`step_logs`):** contagem diária separada — **não entra no saldo de kcal**.
+- Atividades: tipo pesquisável (~40), duração (min), anotações, kcal; editáveis.
 - **[DEPOIS]** panorama IA com contexto do dia inteiro.
 
-### 2.2 Passos e exercícios (sem IA)
+### 2.2 Passos e exercícios
 
-- Lançamento manual: passos, categoria, treino, descrição, kcal gastas.
+- **Passos:** lançamento rápido na home (aba Atividades), tabela `step_logs`.
+- **Atividades:** tipo + tempo + kcal + anotações (sem passos misturados).
 
 ### 2.3 Diário pessoal
 
-- Texto do dia + **foto no MVP** (storage Supabase).
-- **[DEPOIS]** IA analisando o diário.
+- Foto: **1 por dia**, no MVP (storage Supabase `journal-photos`).
+- 1 entrada de texto por dia, editável.
 
 ### 2.4 Dados corporais
 
@@ -44,28 +51,30 @@ Fonte: conversas com o product owner. Itens sem marcação estão **fechados** p
 
 ## 3. Gasto, TMB e saldo
 
-### 3.1 TMB
+### 3.1 TMB e saldo
 
-**TMB por fórmula (Mifflin–St Jeor) + ajuste manual. Sem IA.**
+**Saldo do dia NÃO inclui TMB.**
 
 ```
-gasto_do_dia = TMB_ajustada + exercícios_lançados
+gasto_do_dia = só atividades lançadas (Mover)
 ingestao     = soma das alimentações
-saldo        = gasto_do_dia − ingestao
+saldo        = ingestao − gasto_do_dia
 ```
 
-- Calcular TMB na criação/atualização do perfil (peso, altura, idade, sexo).
-- Disclaimer: estimativa de gasto em repouso (±~10%).
-- Usuário pode sobrescrever TMB ou escolher fator de atividade (sedentário → muito ativo) para base do dia.
-- Fator de atividade = base **sem** treinos explícitos; lançamentos de treino/passos **somam** por cima (UI deixa isso claro).
+- Positivo → comeu mais do que registrou de gasto  
+- Negativo → gastou mais do que comeu  
+- TMB (Mifflin–St Jeor + override) existe no perfil só como **referência**.
+- Na criação de goals, o app sugere teto diário / déficit de período a partir da TMB (estimativa).
+- Passos/treinos só entram quando o usuário lançar.
+- Onboarding: não exibir o número da TMB — só avisar estimativas.
 
 ### 3.2 Saldo
 
 ```
-saldo_do_dia = gasto_do_dia − ingestao_estimada
+saldo_do_dia = ingestao_estimada − gasto_do_dia
 ```
 
-- Positivo → déficit · Negativo → superávit  
+- Positivo → superávit · Negativo → déficit  
 - Agrega semana, mês e goals.
 
 ---
@@ -77,9 +86,10 @@ Todos **confirmados**:
 | Tipo | Significado |
 |------|-------------|
 | `weight_target` | Atingir peso X até data Y |
-| `calorie_deficit` | Somar saldo ≥ N kcal no período |
-| `calorie_surplus` | Somar superávit ≥ N kcal no período (saldo acumulado ≤ −N, conforme convenção da UI) |
+| `calorie_deficit` | Somar déficit (saldo negativo acumulado) ≥ N kcal no período |
+| `calorie_surplus` | Somar superávit (saldo positivo acumulado) ≥ N kcal no período |
 | `logging_habit` | Registrar alimentação em N dias no período |
+| `steps_target` | Somar passos ≥ N no período (passos são independentes do saldo de kcal) |
 
 Criação e progresso **sem IA**. Sinalizações: dentro / perto / fora + tom leve.
 
@@ -199,15 +209,14 @@ Login, RLS, exportar e apagar conta/dados — desenhar desde já.
 
 ## 9. MVP (alvo atual)
 
-Auth · perfil + TMB fórmula · alimentação 1-a-1 com IA (kcal+macros) · atividade manual · diário texto+foto · saldo dia/semana/mês · 4 tipos de goal · sinalizações · gamificação (§6 após ok) · modos de ritmo · disclaimers.
+Auth · perfil + TMB fórmula (sem fator de estilo de vida) · alimentação 1-a-1 com IA (kcal+macros) · atividade manual · diário texto+foto · saldo dia/semana/mês · 5 tipos de goal · sinalizações · gamificação · modos de ritmo · disclaimers.
 
 ---
 
 ## Checklist MVP (fechado)
 
-- [x] TMB por fórmula + ajuste manual / fator de atividade
-- [x] Passos/treinos somam além da base
-- [x] Tipos de goal (4)
+- [x] TMB por fórmula + override manual (sem fator de estilo de vida no saldo)
+- [x] Tipos de goal (5)
 - [x] Macros no dia 1
 - [x] Foto no diário no MVP
 - [x] Programa de XP/badges v1

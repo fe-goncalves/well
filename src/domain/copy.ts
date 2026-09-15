@@ -1,10 +1,11 @@
-/** Copy de saldo e metas — rotacionar variações na UI. */
+/** Copy de saldo e metas — saldo = consumido − gasto. */
 
+/** Consumido > gasto (saldo positivo) */
 export const balancePositiveCopy = [
-  "No azul",
-  "Hoje o gasto vai na frente",
-  "Saldo positivo — energia a favor",
-  "Conta no azul por agora",
+  "Consumo na frente",
+  "Mais ingestão que gasto por agora",
+  "Saldo positivo no placar",
+  "Hoje a comida vai na frente",
 ] as const;
 
 export const balanceNeutralCopy = [
@@ -13,11 +14,12 @@ export const balanceNeutralCopy = [
   "Dia equilibrado até aqui",
 ] as const;
 
+/** Gasto > consumido (saldo negativo) */
 export const balanceNegativeCopy = [
-  "No vermelho do dia",
-  "Ingestão na frente — só um número, não um veredito",
-  "Saldo negativo por agora",
-  "Vermelho no placar de hoje",
+  "Gasto na frente",
+  "No azul do movimento",
+  "Mais gasto que ingestão por agora",
+  "Movimento puxando o placar",
 ] as const;
 
 export const goalStatusCopy = {

@@ -7,7 +7,7 @@ export const GAMIFICATION_MODULE = {
 } as const;
 
 export function rewardFor(event: XpEventType): number {
-  return XP_REWARDS[event];
+  return XP_REWARDS[event] ?? 0;
 }
 
 export { levelFromXp };
