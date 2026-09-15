@@ -45,8 +45,14 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-full flex-1 bg-[#0A9396]">
-      <div className="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-4 py-10">
+    <div className="flex min-h-dvh flex-1 flex-col bg-[#0A9396]">
+      <div
+        className="page-enter mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-4"
+        style={{
+          paddingTop: "max(2.5rem, env(safe-area-inset-top))",
+          paddingBottom: "max(2.5rem, env(safe-area-inset-bottom))",
+        }}
+      >
         <section className="overflow-hidden rounded-[1.75rem] bg-[#005F73] px-6 py-8 text-center">
           <Image
             src="/brand/well.svg"

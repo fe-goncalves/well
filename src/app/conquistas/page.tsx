@@ -2,6 +2,7 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
+import { AppShell } from "@/components/AppShell";
 import { LogoutButton } from "@/components/LogoutButton";
 import { levelFromXp, xpForNextLevel } from "@/domain";
 
@@ -66,8 +67,7 @@ export default async function ConquistasPage() {
   const lockedBadges = (badges ?? []).filter((b) => !earnedMap.has(b.id));
 
   return (
-    <div className="min-h-full flex-1 bg-[#EE9B00]">
-      <div className="mx-auto flex w-full max-w-lg flex-1 flex-col px-4 pb-32 pt-6 sm:max-w-2xl">
+    <AppShell bg="#EE9B00">
         <header className="flex items-center justify-between gap-4">
           <Image
             src="/brand/well.svg"
@@ -75,6 +75,7 @@ export default async function ConquistasPage() {
             width={120}
             height={50}
             className="h-8 w-auto brightness-0 invert"
+            priority
           />
           <div className="flex items-center gap-2">
             <span className="rounded-full bg-[var(--ink)]/15 px-3 py-1.5 text-sm font-bold text-[var(--ink)]">
@@ -85,7 +86,7 @@ export default async function ConquistasPage() {
         </header>
 
         {/* Streak hero */}
-        <section className="relative mt-6 overflow-hidden rounded-[1.75rem] bg-[#CA6702] px-5 py-6">
+        <section className="relative mt-5 overflow-hidden rounded-[1.75rem] bg-[#CA6702] px-5 py-6">
           <p className="text-sm font-bold uppercase tracking-wide text-white/75">
             Streak
           </p>
@@ -257,7 +258,6 @@ export default async function ConquistasPage() {
         </p>
 
         <AppNav active="/conquistas" />
-      </div>
-    </div>
+    </AppShell>
   );
 }

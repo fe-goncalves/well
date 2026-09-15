@@ -71,8 +71,14 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-full flex-1 bg-[#001219]">
-      <div className="mx-auto flex w-full max-w-lg flex-1 flex-col px-4 pb-10 pt-6 sm:max-w-2xl">
+    <div className="flex min-h-dvh flex-1 flex-col bg-[#001219]">
+      <div
+        className="page-enter mx-auto flex w-full max-w-lg flex-1 flex-col px-4 sm:max-w-2xl"
+        style={{
+          paddingTop: "max(1.25rem, env(safe-area-inset-top))",
+          paddingBottom: "max(2.5rem, env(safe-area-inset-bottom))",
+        }}
+      >
         <header className="flex items-center justify-between gap-4">
           <Image
             src="/brand/well.svg"

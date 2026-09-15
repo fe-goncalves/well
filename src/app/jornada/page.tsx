@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
+import { AppShell } from "@/components/AppShell";
 import { FeedbackToast } from "@/components/FeedbackToast";
 import { GoalsSection } from "@/components/GoalsSection";
 import { JornadaCalendar } from "@/components/JornadaCalendar";
@@ -334,8 +335,7 @@ export default async function JornadaPage({
   const periodTitle = periodo === "mes" ? monthLabel : "Esta semana";
 
   return (
-    <div className="min-h-full flex-1 bg-[#0A9396]">
-      <div className="mx-auto flex w-full max-w-lg flex-1 flex-col px-4 pb-32 pt-6 sm:max-w-2xl">
+    <AppShell bg="#0A9396">
         <header className="flex items-center justify-between gap-4">
           <Image
             src="/brand/well.svg"
@@ -343,6 +343,7 @@ export default async function JornadaPage({
             width={120}
             height={50}
             className="h-8 w-auto"
+            priority
           />
           <div className="flex items-center gap-2">
             <Link
@@ -356,7 +357,7 @@ export default async function JornadaPage({
           </div>
         </header>
 
-        <section className="relative mt-6 overflow-hidden rounded-[1.75rem] bg-[#005F73] px-5 py-6">
+        <section className="relative mt-5 overflow-hidden rounded-[1.75rem] bg-[#005F73] px-5 py-6">
           <p className="text-sm font-bold uppercase tracking-wide text-white/70">
             Saldo · {periodTitle}
           </p>
@@ -450,7 +451,6 @@ export default async function JornadaPage({
           <FeedbackToast />
         </Suspense>
         <AppNav active="/jornada" />
-      </div>
-    </div>
+    </AppShell>
   );
 }

@@ -11,7 +11,7 @@ export default async function HomePage() {
   if (user) redirect("/hoje");
 
   return (
-    <div className="relative flex min-h-full flex-1 flex-col overflow-hidden bg-[#0A9396]">
+    <div className="relative flex min-h-dvh flex-1 flex-col overflow-hidden bg-[#0A9396]">
       {/* Atmosphere */}
       <div
         className="pointer-events-none absolute inset-0"
@@ -50,7 +50,13 @@ export default async function HomePage() {
         />
       </div>
 
-      <main className="relative z-10 mx-auto flex w-full max-w-lg flex-1 flex-col justify-center px-5 py-12 sm:max-w-xl">
+      <main
+        className="relative z-10 mx-auto flex w-full max-w-lg flex-1 flex-col justify-center px-5 sm:max-w-xl"
+        style={{
+          paddingTop: "max(3rem, env(safe-area-inset-top))",
+          paddingBottom: "max(2rem, env(safe-area-inset-bottom))",
+        }}
+      >
         <div className="lp-rise flex flex-col items-center text-center">
           <Image
             src="/brand/well.svg"

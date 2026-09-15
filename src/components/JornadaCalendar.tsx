@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
+import { useAppNav } from "@/components/NavigationProvider";
 import {
   JornadaDayModal,
   type DayDetail,
@@ -41,6 +41,7 @@ export function JornadaCalendar({
   byDate: Record<string, DayInfo>;
   dayDetails: Record<string, DayDetail>;
 }) {
+  const { navigate } = useAppNav();
   const [selected, setSelected] = useState<string | null>(null);
 
   const emptyDetail = useMemo(
@@ -75,34 +76,56 @@ export function JornadaCalendar({
     return { tone, isToday, recorded, bal, info };
   }
 
-  function CellContent({ date }: { date: string }) {
+  function CellMarks({ date, compact }: { date: string; compact?: boolean }) {
     const { recorded, bal, info } = cellTone(date);
     const stepsLabel = formatSteps(info?.steps ?? 0);
+    const marks: string[] = [];
+    if (info?.inStreak) marks.push("🔥");
+    else if (info?.usedFreeze) marks.push("🧊");
+    if ((info?.goalIds?.length ?? 0) > 0) marks.push("🎯");
+    if (stepsLabel) marks.push("👟");
+
     return (
-      <>
-        <span className="flex items-center justify-center gap-0.5 leading-none">
-          {info?.inStreak ? (
-            <span aria-hidden>🔥</span>
-          ) : info?.usedFreeze ? (
-            <span aria-hidden>🧊</span>
-          ) : null}
-          <span>{date.slice(8)}</span>
-          {(info?.goalIds?.length ?? 0) > 0 ? (
-            <span aria-hidden>🎯</span>
-          ) : null}
+      <div className="flex w-full flex-col items-center gap-0.5 overflow-hidden">
+        <span
+          className={`font-extrabold tabular-nums leading-none ${
+            compact ? "text-[11px]" : "text-sm"
+          }`}
+        >
+          {date.slice(8)}
         </span>
+        {marks.length > 0 ? (
+          <span
+            className={`flex max-w-full flex-wrap items-center justify-center gap-x-0.5 leading-none ${
+              compact ? "text-[9px]" : "text-[11px]"
+            }`}
+          >
+            {marks.map((m) => (
+              <span key={m} aria-hidden>
+                {m}
+              </span>
+            ))}
+          </span>
+        ) : (
+          <span className={`leading-none ${compact ? "h-[9px]" : "h-[11px]"}`} />
+        )}
         {recorded ? (
-          <span className="text-[8px] font-bold leading-none">
+          <span
+            className={`font-bold tabular-nums leading-none ${
+              compact ? "text-[8px]" : "text-[10px]"
+            }`}
+          >
             {bal > 0 ? "+" : ""}
             {Math.round(bal)}
           </span>
-        ) : null}
-        {stepsLabel ? (
-          <span className="text-[7px] font-semibold leading-none text-[var(--deep)]">
-            👟{stepsLabel}
+        ) : stepsLabel && !compact ? (
+          <span className="text-[9px] font-semibold leading-none text-[var(--deep)]">
+            {stepsLabel}
           </span>
-        ) : null}
-      </>
+        ) : (
+          <span className={`leading-none ${compact ? "h-2" : "h-2.5"}`} />
+        )}
+      </div>
     );
   }
 
@@ -111,9 +134,10 @@ export function JornadaCalendar({
       <section className="mt-5 overflow-hidden rounded-[1.5rem] bg-[var(--sand)]">
         <div className="bg-[var(--ink)] p-1.5">
           <div className="grid grid-cols-2 gap-1">
-            <Link
-              href="/jornada?periodo=semana"
-              className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-bold ${
+            <button
+              type="button"
+              onClick={() => navigate("/jornada?periodo=semana")}
+              className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-bold transition-transform active:scale-[0.98] ${
                 periodo === "semana"
                   ? "bg-[var(--amber)] text-[var(--ink)]"
                   : "text-white/65"
@@ -121,10 +145,11 @@ export function JornadaCalendar({
             >
               <span aria-hidden>🗓️</span>
               Semanal
-            </Link>
-            <Link
-              href="/jornada?periodo=mes"
-              className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-bold ${
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/jornada?periodo=mes")}
+              className={`flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-bold transition-transform active:scale-[0.98] ${
                 periodo === "mes"
                   ? "bg-[var(--mint)] text-[var(--ink)]"
                   : "text-white/65"
@@ -132,12 +157,12 @@ export function JornadaCalendar({
             >
               <span aria-hidden>📅</span>
               Mensal
-            </Link>
+            </button>
           </div>
         </div>
 
         <div className="p-3">
-          <div className="rounded-2xl bg-white px-3 py-4 shadow-sm">
+          <div className="rounded-2xl bg-white px-2 py-4 shadow-sm sm:px-3">
             <p className="mb-3 text-center text-[10px] font-bold tracking-[0.2em] text-[var(--muted)] uppercase">
               {periodo === "mes" ? monthLabel : "Semana corrente"}
             </p>
@@ -149,10 +174,12 @@ export function JornadaCalendar({
                     <span key={`${d}-${i}`}>{d}</span>
                   ))}
                 </div>
-                <div className="grid grid-cols-7 gap-1">
+                <div className="grid grid-cols-7 gap-1.5">
                   {matrix.flat().map((date, idx) => {
                     if (!date) {
-                      return <div key={`e-${idx}`} className="aspect-square" />;
+                      return (
+                        <div key={`e-${idx}`} className="min-h-[4.25rem]" />
+                      );
                     }
                     const { tone, isToday } = cellTone(date);
                     return (
@@ -160,18 +187,18 @@ export function JornadaCalendar({
                         type="button"
                         key={date}
                         onClick={() => setSelected(date)}
-                        className={`flex min-h-[3.1rem] flex-col items-center justify-center gap-0.5 rounded-lg px-0.5 py-1 text-[11px] font-semibold ${tone} ${
+                        className={`flex min-h-[4.25rem] flex-col items-center justify-center rounded-xl px-0.5 py-1.5 transition-transform active:scale-95 ${tone} ${
                           isToday ? "ring-2 ring-[var(--ink)]" : ""
                         }`}
                       >
-                        <CellContent date={date} />
+                        <CellMarks date={date} compact />
                       </button>
                     );
                   })}
                 </div>
               </>
             ) : (
-              <div className="grid grid-cols-7 gap-1.5">
+              <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {weekDays.map((date, i) => {
                   const { tone, isToday } = cellTone(date);
                   return (
@@ -179,15 +206,15 @@ export function JornadaCalendar({
                       type="button"
                       key={date}
                       onClick={() => setSelected(date)}
-                      className={`rounded-xl px-0.5 py-2 text-center ${tone} ${
+                      className={`flex w-[4.6rem] shrink-0 flex-col items-center rounded-2xl px-1.5 py-3 transition-transform active:scale-95 ${tone} ${
                         isToday ? "ring-2 ring-[var(--ink)]" : ""
                       }`}
                     >
-                      <p className="text-[10px] font-semibold text-[var(--muted)]">
+                      <p className="text-[10px] font-bold tracking-wide text-[var(--muted)] uppercase">
                         {WEEKDAYS[i]}
                       </p>
-                      <div className="mt-1 flex flex-col items-center gap-0.5 text-sm font-bold">
-                        <CellContent date={date} />
+                      <div className="mt-2 w-full">
+                        <CellMarks date={date} />
                       </div>
                     </button>
                   );

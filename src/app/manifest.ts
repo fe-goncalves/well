@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "WELL",
     description:
       "Caderno de hábitos: alimentação com IA, movimento, diário e metas — estimativas, não dietas.",
-    start_url: "/",
+    start_url: "/hoje",
     scope: "/",
     display: "standalone",
     orientation: "portrait-primary",

@@ -162,3 +162,61 @@ body {
     animation: none;
   }
 }
+
+/* Full viewport + page motion */
+html,
+body {
+  min-height: 100dvh;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.992);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.page-enter {
+  animation: page-enter 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes brand-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes brand-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.92);
+    opacity: 0.85;
+  }
+}
+
+.brand-loader-ring {
+  border: 3px solid color-mix(in oklab, var(--mint) 35%, transparent);
+  border-top-color: var(--mint);
+  animation: brand-spin 0.85s linear infinite;
+}
+
+.brand-loader-w {
+  animation: brand-pulse 1.25s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .brand-loader-ring,
+  .brand-loader-w {
+    animation: none;
+  }
+}
+

@@ -1,4 +1,7 @@
-import Link from "next/link";
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useAppNav } from "@/components/NavigationProvider";
 
 const ITEMS = [
   { href: "/hoje", label: "Hoje", emoji: "🏠" },
@@ -8,6 +11,9 @@ const ITEMS = [
 ] as const;
 
 export function AppNav({ active }: { active: (typeof ITEMS)[number]["href"] }) {
+  const router = useRouter();
+  const { navigate, pending } = useAppNav();
+
   return (
     <nav
       aria-label="Principal"
@@ -17,10 +23,15 @@ export function AppNav({ active }: { active: (typeof ITEMS)[number]["href"] }) {
         {ITEMS.map((item) => {
           const isActive = item.href === active;
           return (
-            <Link
+            <button
               key={item.href}
-              href={item.href}
-              className={`flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-full px-2 py-2.5 transition-colors ${
+              type="button"
+              disabled={pending && !isActive}
+              onPointerEnter={() => router.prefetch(item.href)}
+              onClick={() => {
+                if (!isActive) navigate(item.href);
+              }}
+              className={`flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-full px-2 py-2.5 transition-[transform,background-color,color] duration-150 ease-out active:scale-95 ${
                 isActive
                   ? "bg-white text-[var(--ink)]"
                   : "text-white/70 hover:text-white"
@@ -32,7 +43,7 @@ export function AppNav({ active }: { active: (typeof ITEMS)[number]["href"] }) {
               <span className="truncate text-[10px] font-bold tracking-wide">
                 {item.label}
               </span>
-            </Link>
+            </button>
           );
         })}
       </div>

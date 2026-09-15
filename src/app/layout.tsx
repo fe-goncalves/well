@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Manrope } from "next/font/google";
+import { NavigationProvider } from "@/components/NavigationProvider";
 import { PwaRegister } from "@/components/PwaRegister";
 import "./globals.css";
 
@@ -40,6 +41,10 @@ export const metadata: Metadata = {
     apple: [{ url: "/brand/icon_4.png", sizes: "180x180", type: "image/png" }],
   },
   manifest: "/manifest.webmanifest",
+  other: {
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+  },
 };
 
 export const viewport: Viewport = {
@@ -54,10 +59,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
-      className={`${display.variable} ${sans.variable} h-full antialiased`}
+      className={`${display.variable} ${sans.variable} h-dvh antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-white font-sans text-[var(--ink)]">
-        {children}
+      <body className="flex min-h-dvh flex-col overflow-x-hidden bg-white font-sans text-[var(--ink)]">
+        <NavigationProvider>{children}</NavigationProvider>
         <PwaRegister />
       </body>
     </html>

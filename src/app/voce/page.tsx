@@ -6,6 +6,8 @@ import { FormEvent, useEffect, useState, type ReactNode } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { AppNav } from "@/components/AppNav";
+import { AppShell } from "@/components/AppShell";
+import { BrandLoader } from "@/components/BrandLoader";
 import { FieldBlock } from "@/components/ScreenChrome";
 import { LogoutButton } from "@/components/LogoutButton";
 import {
@@ -307,16 +309,11 @@ export default function VocePage() {
   }
 
   if (loading) {
-    return (
-      <div className="flex min-h-full flex-1 items-center justify-center bg-[#001219] text-sm text-white/60">
-        Carregando…
-      </div>
-    );
+    return <BrandLoader />;
   }
 
   return (
-    <div className="min-h-full flex-1 bg-[#001219]">
-      <div className="mx-auto flex w-full max-w-lg flex-1 flex-col px-4 pb-32 pt-6 sm:max-w-2xl">
+    <AppShell bg="#001219">
         <header className="flex items-center justify-between gap-4">
           <Image
             src="/brand/well.svg"
@@ -324,11 +321,12 @@ export default function VocePage() {
             width={120}
             height={50}
             className="h-8 w-auto brightness-0 invert"
+            priority
           />
           <LogoutButton className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-sm font-bold text-white" />
         </header>
 
-        <section className="relative mt-6 overflow-hidden rounded-[1.75rem] bg-[#005F73] px-5 py-6">
+        <section className="relative mt-5 overflow-hidden rounded-[1.75rem] bg-[#005F73] px-5 py-6">
           <p className="text-sm font-bold uppercase tracking-wide text-white/70">
             Você
           </p>
@@ -613,7 +611,6 @@ export default function VocePage() {
         </CollapsibleSection>
 
         <AppNav active="/voce" />
-      </div>
-    </div>
+    </AppShell>
   );
 }
