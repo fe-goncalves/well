@@ -7,6 +7,7 @@ import { AppNav } from "@/components/AppNav";
 import { FeedbackToast } from "@/components/FeedbackToast";
 import { GoalsSection } from "@/components/GoalsSection";
 import { JornadaCalendar } from "@/components/JornadaCalendar";
+import { LogoutButton } from "@/components/LogoutButton";
 import { WeightPanel } from "@/components/WeightPanel";
 import type { DayDetail } from "@/components/JornadaDayModal";
 import {
@@ -343,13 +344,16 @@ export default async function JornadaPage({
             height={50}
             className="h-8 w-auto"
           />
-          <Link
-            href="/jornada/novo"
-            className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-sm font-bold text-white"
-          >
-            <span aria-hidden>🎯</span>
-            Objetivo
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/jornada/novo"
+              className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1.5 text-sm font-bold text-white"
+            >
+              <span aria-hidden>🎯</span>
+              Objetivo
+            </Link>
+            <LogoutButton />
+          </div>
         </header>
 
         <section className="relative mt-6 overflow-hidden rounded-[1.75rem] bg-[#005F73] px-5 py-6">

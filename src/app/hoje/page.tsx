@@ -11,6 +11,7 @@ import { AppNav } from "@/components/AppNav";
 import { FeedbackToast } from "@/components/FeedbackToast";
 import { HojeHeaderActions } from "@/components/HojeHeaderActions";
 import { HojeLists } from "@/components/HojeLists";
+import { LogoutButton } from "@/components/LogoutButton";
 
 export default async function HojePage() {
   const supabase = await createClient();
@@ -110,6 +111,7 @@ export default async function HojePage() {
                 ? ` · ${streak.freeze_count} freeze`
                 : ""}
             </div>
+            <LogoutButton />
           </div>
         </header>
 

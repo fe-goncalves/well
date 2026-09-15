@@ -2,6 +2,7 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { AppNav } from "@/components/AppNav";
+import { LogoutButton } from "@/components/LogoutButton";
 import { levelFromXp, xpForNextLevel } from "@/domain";
 
 const BADGE_EMOJI: Record<string, string> = {
@@ -75,9 +76,12 @@ export default async function ConquistasPage() {
             height={50}
             className="h-8 w-auto brightness-0 invert"
           />
-          <span className="rounded-full bg-[var(--ink)]/15 px-3 py-1.5 text-sm font-bold text-[var(--ink)]">
-            🏆 Conquistas
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="rounded-full bg-[var(--ink)]/15 px-3 py-1.5 text-sm font-bold text-[var(--ink)]">
+              🏆 Conquistas
+            </span>
+            <LogoutButton className="inline-flex items-center gap-1.5 rounded-full bg-[var(--ink)]/15 px-3 py-1.5 text-sm font-bold text-[var(--ink)]" />
+          </div>
         </header>
 
         {/* Streak hero */}

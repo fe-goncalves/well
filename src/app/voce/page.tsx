@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { AppNav } from "@/components/AppNav";
 import { FieldBlock } from "@/components/ScreenChrome";
+import { LogoutButton } from "@/components/LogoutButton";
 import {
   deleteSavedFood,
   listSavedFoods,
@@ -299,17 +300,10 @@ export default function VocePage() {
   }
 
   async function removeSaved(id: string) {
-    if (!confirm("Remover da base?")) return;
+    if (!window.confirm("Remover da base?")) return;
     const supabase = createClient();
     const err = await deleteSavedFood(supabase, id);
     if (!err) setSaved((prev) => prev.filter((s) => s.id !== id));
-  }
-
-  async function logout() {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push("/login");
-    router.refresh();
   }
 
   if (loading) {
@@ -331,14 +325,7 @@ export default function VocePage() {
             height={50}
             className="h-8 w-auto brightness-0 invert"
           />
-          <button
-            type="button"
-            onClick={logout}
-            className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-sm font-bold text-white"
-          >
-            <span aria-hidden>👋</span>
-            Sair
-          </button>
+          <LogoutButton className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-sm font-bold text-white" />
         </header>
 
         <section className="relative mt-6 overflow-hidden rounded-[1.75rem] bg-[#005F73] px-5 py-6">
