@@ -44,4 +44,5 @@ next-env.d.ts
 .open-next
 .wrangler
 .dev.vars
+.pages-proxy
 cloudflare-env.d.ts
