@@ -46,15 +46,14 @@ export function JornadaCalendar({
   const emptyDetail = useMemo(
     () =>
       selected
-        ? ({
+        ? {
             date: selected,
-            foods: [],
-            activities: [],
-            steps: 0,
-            journal: null,
-            goals: [],
-            ...dayDetails[selected],
-          } satisfies DayDetail)
+            foods: dayDetails[selected]?.foods ?? [],
+            activities: dayDetails[selected]?.activities ?? [],
+            steps: dayDetails[selected]?.steps ?? 0,
+            journal: dayDetails[selected]?.journal ?? null,
+            goals: dayDetails[selected]?.goals ?? [],
+          }
         : null,
     [selected, dayDetails],
   );

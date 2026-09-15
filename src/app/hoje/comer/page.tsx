@@ -209,7 +209,7 @@ export default function ComerPage() {
   }
 
   async function onDeleteSaved(id: string) {
-    if (!confirm("Remover este alimento da sua base?")) return;
+    if (!window.confirm("Remover este alimento da sua base?")) return;
     const supabase = createClient();
     const err = await deleteSavedFood(supabase, id);
     if (err) {
